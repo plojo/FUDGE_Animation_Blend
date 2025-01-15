@@ -14,3 +14,55 @@ canvas.fullscreen {
   width: 100vw; 
   height: 100vh; 
 }
+
+.ui-canvas {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+.control-group {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 5px;
+  margin: 5px 0;
+  justify-content: space-around;
+
+}
+
+.control-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: space-between;
+  /* min-width: 217px; */
+}
+
+.key {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.action {
+  color: #ccc;
+  white-space: nowrap;
+
+}
+
+fudge-boolean,
+fudge-color,
+fudge-stepper,
+fudge-select {
+  display: block;
+}

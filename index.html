@@ -12,7 +12,7 @@
 <script type="text/javascript" src="https://hs-furtwangen.github.io/FUDGE/Distribution/OimoPhysics.js"></script>
 
 <!--Load FUDGE. You may want to download local copies to work offline and be independent from future changes! Developers working on FUDGE itself may want to create symlinks-->
-<script type="text/javascript" src="https://hs-furtwangen.github.io/FUDGE/Distribution/FudgeCore.js"></script>
+<script type="text/javascript" src="Script/FudgeCore.js"></script>
 
 <!--Link internal resources. The editor only loads the first, but at runtime, multiple files can contribute-->
 <link type="resources" src="Internal.json" />
@@ -31,5 +31,37 @@
 <!--Canvas for FUDGE to render to-->
 <canvas class="fullscreen">
 </canvas>
+<div id="controls" class="ui-canvas">
+    <div class="control-group">
+        <span class="control-item">
+            <span class="key">Mouse</span>
+            <span class="action">Move Camera</span>
+        </span>
+        <span class="control-item">
+            <span class="key">Right Click</span>
+            <span class="action">Capture Pointer</span>
+        </span>
+    </div>
+    <div class="control-group">
+        <span class="control-item">
+            <span class="key">WASD</span>
+            <span class="action">Move</span>
+        </span>
+        <span class="control-item">
+            <span class="key">Shift</span>
+            <span class="action">Sprint</span>
+        </span>
+    </div>
+    <div class="control-group">
+        <span class="control-item">
+            <span class="key">Space</span>
+            <span class="action">Jump</span>
+        </span>
+        <span class="control-item">
+            <span class="key">E</span>
+            <span class="action">Sheathe</span>
+        </span>
+    </div>
+</div>
 </body>
 </html>
