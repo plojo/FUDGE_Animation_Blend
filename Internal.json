@@ -1,0 +1,960 @@
+{
+  "MeshCube|2024-12-16T09:34:16.343Z|79335": {
+    "ƒ.MeshCube": {
+      "idResource": "MeshCube|2024-12-16T09:34:16.343Z|79335",
+      "name": "MeshCube",
+      "type": "MeshCube"
+    }
+  },
+  "Material|2024-12-16T09:35:58.337Z|51987": {
+    "ƒ.Material": {
+      "name": "Grid",
+      "idResource": "Material|2024-12-16T09:35:58.337Z|51987",
+      "shader": "ShaderPhongTextured",
+      "coat": {
+        "ƒ.CoatRemissiveTextured": {
+          "color": "[1, 1, 1, 1]",
+          "idTexture": "TextureImage|2024-12-16T09:36:30.632Z|69224",
+          "diffuse": 1,
+          "specular": 0,
+          "intensity": 0,
+          "metallic": 0
+        }
+      },
+      "alphaClip": 0.01
+    }
+  },
+  "TextureImage|2024-12-16T09:36:30.632Z|69224": {
+    "ƒ.TextureImage": {
+      "url": "Quad.svg",
+      "type": "TextureImage",
+      "Texture": {
+        "idResource": "TextureImage|2024-12-16T09:36:30.632Z|69224",
+        "name": "Quad.svg",
+        "mipmap": "CRISP",
+        "wrap": "REPEAT"
+      }
+    }
+  },
+  "GraphGLTF|2024-12-16T10:05:07.839Z|39057": {
+    "ƒ.GraphGLTF": {
+      "name": "Avatar",
+      "active": true,
+      "components": {
+        "ComponentTransform": [
+          {
+            "ƒ.ComponentTransform": {
+              "local": {
+                "translation": "[0, 0, 0]",
+                "rotation": "[0, 0, 0]",
+                "scaling": "[1, 1, 1]"
+              },
+              "Component": {
+                "active": true
+              }
+            }
+          }
+        ],
+        "ComponentRigidbody": [
+          {
+            "ƒ.ComponentRigidbody": {
+              "initialization": "TO_PIVOT",
+              "friction": 0.2,
+              "restitution": 0.2,
+              "mass": 70,
+              "dampTranslation": 0.1,
+              "dampRotation": 0.1,
+              "effectGravity": 1,
+              "typeBody": "DYNAMIC",
+              "typeCollider": "CAPSULE",
+              "isTrigger": false,
+              "id": 0,
+              "pivot": {
+                "translation": "[0, 0.9, 0]",
+                "rotation": "[0, 0, 0]",
+                "scaling": "[0.6000000000000001, 1.2000000000000002, 1]"
+              },
+              "Component": {
+                "active": true
+              }
+            }
+          }
+        ],
+        "CharacterController": [
+          {
+            "Script.CharacterController": {
+              "active": true,
+              "stateBody": "idle",
+              "stateUpper": "empty",
+              "walkSpeed": 1.5,
+              "runSpeed": 5,
+              "animationIdling": "AnimationGLTF|2024-12-16T10:05:07.876Z|24319",
+              "animationWalking": "AnimationGLTF|2024-12-16T10:05:07.971Z|77177",
+              "animationRunning": "AnimationGLTF|2024-12-16T10:05:07.951Z|80430",
+              "animationJumping": "AnimationGLTF|2024-12-16T10:05:07.932Z|66161",
+              "animationFalling": "AnimationGLTF|2024-12-16T10:05:07.839Z|84639",
+              "animationSheathing": "AnimationGLTF|2024-12-16T10:05:07.959Z|05031"
+            }
+          }
+        ],
+        "ComponentAnimationGraph": [
+          {
+            "ƒ.ComponentAnimationGraph": {
+              "active": true
+            }
+          }
+        ],
+        "ComponentGraphFilter": [
+          {
+            "ƒ.ComponentGraphFilter": {
+              "active": true
+            }
+          }
+        ],
+        "ComponentAnimation": [
+          {
+            "ƒ.ComponentAnimation": {
+              "Component": {
+                "active": true
+              },
+              "idAnimation": "AnimationGLTF|2024-12-16T10:05:07.959Z|05031",
+              "playmode": "loop",
+              "quantization": "continous",
+              "scale": 1,
+              "scaleWithGameTime": true,
+              "animateInEditor": false
+            }
+          }
+        ]
+      },
+      "idResource": "GraphGLTF|2024-12-16T10:05:07.839Z|39057",
+      "type": "GraphGLTF",
+      "url": "GLTF\\Avatar.gltf"
+    }
+  },
+  "AnimationGLTF|2024-12-16T10:05:07.876Z|24319": {
+    "ƒ.AnimationGLTF": {
+      "idResource": "AnimationGLTF|2024-12-16T10:05:07.876Z|24319",
+      "name": "Idle",
+      "type": "AnimationGLTF",
+      "url": "GLTF\\Avatar.gltf",
+      "events": {}
+    }
+  },
+  "AnimationGLTF|2024-12-16T10:05:07.971Z|77177": {
+    "ƒ.AnimationGLTF": {
+      "idResource": "AnimationGLTF|2024-12-16T10:05:07.971Z|77177",
+      "name": "Walking",
+      "type": "AnimationGLTF",
+      "url": "GLTF\\Avatar.gltf",
+      "events": {}
+    }
+  },
+  "AnimationGLTF|2024-12-16T10:05:07.951Z|80430": {
+    "ƒ.AnimationGLTF": {
+      "idResource": "AnimationGLTF|2024-12-16T10:05:07.951Z|80430",
+      "name": "Running",
+      "type": "AnimationGLTF",
+      "url": "GLTF\\Avatar.gltf",
+      "events": {}
+    }
+  },
+  "AnimationGLTF|2024-12-16T10:05:07.932Z|66161": {
+    "ƒ.AnimationGLTF": {
+      "idResource": "AnimationGLTF|2024-12-16T10:05:07.932Z|66161",
+      "name": "Jumping",
+      "type": "AnimationGLTF",
+      "url": "GLTF\\Avatar.gltf",
+      "events": {}
+    }
+  },
+  "AnimationGLTF|2024-12-16T10:05:07.839Z|84639": {
+    "ƒ.AnimationGLTF": {
+      "idResource": "AnimationGLTF|2024-12-16T10:05:07.839Z|84639",
+      "name": "Falling",
+      "type": "AnimationGLTF",
+      "url": "GLTF\\Avatar.gltf",
+      "events": {}
+    }
+  },
+  "AnimationGLTF|2024-12-16T10:05:07.959Z|05031": {
+    "ƒ.AnimationGLTF": {
+      "idResource": "AnimationGLTF|2024-12-16T10:05:07.959Z|05031",
+      "name": "Sheathing",
+      "type": "AnimationGLTF",
+      "url": "GLTF\\Avatar.gltf",
+      "events": {
+        "sheathingend": 1370
+      }
+    }
+  },
+  "Animation|2024-12-16T10:23:57.507Z|38290": {
+    "ƒ.Animation": {
+      "idResource": "Animation|2024-12-16T10:23:57.507Z|38290",
+      "name": "X",
+      "labels": {},
+      "events": {},
+      "framesPerSecond": 60,
+      "animationStructure": {
+        "components": {
+          "ComponentTransform": {
+            "0": {
+              "mtxLocal": {
+                "rotation": {
+                  "x": {
+                    "keys": [
+                      {
+                        "time": 0,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 1000,
+                        "value": 0.7071068,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 2000,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      }
+                    ],
+                    "animationSequence": true
+                  },
+                  "y": {
+                    "keys": [
+                      {
+                        "time": 0,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 2000,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      }
+                    ],
+                    "animationSequence": true
+                  },
+                  "z": {
+                    "keys": [
+                      {
+                        "time": 0,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 2000,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      }
+                    ],
+                    "animationSequence": true
+                  },
+                  "w": {
+                    "keys": [
+                      {
+                        "time": 0,
+                        "value": 1,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 1000,
+                        "value": 0.7071068,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 2000,
+                        "value": 1,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      }
+                    ],
+                    "animationSequence": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "Animation|2024-12-16T10:24:11.070Z|83318": {
+    "ƒ.Animation": {
+      "idResource": "Animation|2024-12-16T10:24:11.070Z|83318",
+      "name": "Y",
+      "labels": {},
+      "events": {},
+      "framesPerSecond": 60,
+      "animationStructure": {
+        "components": {
+          "ComponentTransform": {
+            "0": {
+              "mtxLocal": {
+                "rotation": {
+                  "x": {
+                    "keys": [
+                      {
+                        "time": 0,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 1000,
+                        "value": 0.5,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 2000,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      }
+                    ],
+                    "animationSequence": true
+                  },
+                  "y": {
+                    "keys": [
+                      {
+                        "time": 0,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 1000,
+                        "value": 0.5,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 2000,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      }
+                    ],
+                    "animationSequence": true
+                  },
+                  "z": {
+                    "keys": [
+                      {
+                        "time": 0,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 1000,
+                        "value": 0.5,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 2000,
+                        "value": 0,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      }
+                    ],
+                    "animationSequence": true
+                  },
+                  "w": {
+                    "keys": [
+                      {
+                        "time": 0,
+                        "value": 1,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 1000,
+                        "value": 0.5,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 2000,
+                        "value": 1,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      }
+                    ],
+                    "animationSequence": true
+                  }
+                },
+                "scaling": {
+                  "x": {
+                    "keys": [
+                      {
+                        "time": 0,
+                        "value": 1,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 1000,
+                        "value": 2,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 2000,
+                        "value": 1,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      }
+                    ],
+                    "animationSequence": true
+                  },
+                  "y": {
+                    "keys": [
+                      {
+                        "time": 0,
+                        "value": 1,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 1000,
+                        "value": 2,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 2000,
+                        "value": 1,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      }
+                    ],
+                    "animationSequence": true
+                  },
+                  "z": {
+                    "keys": [
+                      {
+                        "time": 0,
+                        "value": 1,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 1000,
+                        "value": 2,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      },
+                      {
+                        "time": 2000,
+                        "value": 1,
+                        "interpolation": 2,
+                        "slopeIn": 0,
+                        "slopeOut": 0
+                      }
+                    ],
+                    "animationSequence": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "Graph|2024-12-16T09:33:18.552Z|83139": {
+    "ƒ.Graph": {
+      "name": "Main",
+      "active": true,
+      "components": {},
+      "children": [
+        {
+          "ƒ.Node": {
+            "name": "Camera",
+            "active": true,
+            "components": {
+              "ComponentTransform": [
+                {
+                  "ƒ.ComponentTransform": {
+                    "local": {
+                      "translation": "[0, 3.799999952316284, -5.300000190734863]",
+                      "rotation": "[30.00000044529205, 0, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ],
+              "ComponentCamera": [
+                {
+                  "ƒ.ComponentCamera": {
+                    "backgroundColor": {
+                      "r": 0.5294117647058824,
+                      "g": 0.807843137254902,
+                      "b": 0.9215686274509803,
+                      "a": 1
+                    },
+                    "backgroundEnabled": true,
+                    "projection": "central",
+                    "fieldOfView": 45,
+                    "direction": "diagonal",
+                    "near": 1,
+                    "far": 2000,
+                    "aspect": 1,
+                    "pivot": {
+                      "translation": "[0, 0, 0]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ],
+              "CameraController": [
+                {
+                  "Script.CameraController": {
+                    "active": true,
+                    "radius": 7,
+                    "azimuth": 0,
+                    "elevation": 45,
+                    "rotationSpeed": 30,
+                    "target": "node/parent/children/4"
+                  }
+                }
+              ]
+            },
+            "children": []
+          }
+        },
+        {
+          "ƒ.Node": {
+            "name": "Light",
+            "active": true,
+            "components": {
+              "ComponentTransform": [
+                {
+                  "ƒ.ComponentTransform": {
+                    "local": {
+                      "translation": "[1.5, 3.000000238418579, -4.5]",
+                      "rotation": "[29.99999955470796, -30.00000044529205, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ],
+              "ComponentLight": [
+                {
+                  "ƒ.ComponentLight": {
+                    "pivot": {
+                      "translation": "[0, 0, 0]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "light": {
+                      "ƒ.LightAmbient": {
+                        "color": "[0.2901960784313726, 0.2901960784313726, 0.2901960784313726, 1]",
+                        "intensity": 1
+                      }
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                },
+                {
+                  "ƒ.ComponentLight": {
+                    "pivot": {
+                      "translation": "[0, 0, 0]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "light": {
+                      "ƒ.LightDirectional": {
+                        "color": "[0.8117647058823529, 0.8117647058823529, 0.8117647058823529, 1]",
+                        "intensity": 1
+                      }
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ]
+            },
+            "children": []
+          }
+        },
+        {
+          "ƒ.Node": {
+            "name": "Ground",
+            "active": true,
+            "components": {
+              "ComponentMesh": [
+                {
+                  "ƒ.ComponentMesh": {
+                    "idMesh": "MeshCube|2024-12-16T09:34:16.343Z|79335",
+                    "pivot": {
+                      "translation": "[0, 0, 0]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ],
+              "ComponentMaterial": [
+                {
+                  "ƒ.ComponentMaterial": {
+                    "sortForAlpha": false,
+                    "clrPrimary": "[1, 1, 1, 1]",
+                    "clrSecondary": "[1, 1, 1, 1]",
+                    "pivot": {
+                      "translation": "[0, 0]",
+                      "rotation": 0,
+                      "scaling": "[10, 10]"
+                    },
+                    "Component": {
+                      "active": true
+                    },
+                    "idMaterial": "Material|2024-12-16T09:35:58.337Z|51987"
+                  }
+                }
+              ],
+              "ComponentTransform": [
+                {
+                  "ƒ.ComponentTransform": {
+                    "local": {
+                      "translation": "[0, -0.5, 0]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[10, 1, 10]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ],
+              "ComponentRigidbody": [
+                {
+                  "ƒ.ComponentRigidbody": {
+                    "initialization": "TO_NODE",
+                    "friction": 0.2,
+                    "restitution": 0.2,
+                    "mass": 500,
+                    "dampTranslation": 0.1,
+                    "dampRotation": 0.1,
+                    "effectGravity": 1,
+                    "typeBody": "STATIC",
+                    "typeCollider": "CUBE",
+                    "isTrigger": false,
+                    "id": 1,
+                    "pivot": {
+                      "translation": "[0, 0, 0]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ]
+            },
+            "children": []
+          }
+        },
+        {
+          "ƒ.Node": {
+            "name": "Cube",
+            "active": true,
+            "components": {
+              "ComponentMesh": [
+                {
+                  "ƒ.ComponentMesh": {
+                    "idMesh": "MeshCube|2024-12-16T09:34:16.343Z|79335",
+                    "pivot": {
+                      "translation": "[0, 0, 0]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ],
+              "ComponentMaterial": [
+                {
+                  "ƒ.ComponentMaterial": {
+                    "sortForAlpha": false,
+                    "clrPrimary": "[1, 1, 1, 1]",
+                    "clrSecondary": "[1, 1, 1, 1]",
+                    "pivot": {
+                      "translation": "[0, 0]",
+                      "rotation": 0,
+                      "scaling": "[1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    },
+                    "idMaterial": "Material|2024-12-16T09:35:58.337Z|51987"
+                  }
+                }
+              ],
+              "ComponentTransform": [
+                {
+                  "ƒ.ComponentTransform": {
+                    "local": {
+                      "translation": "[-1.5000001192092896, 0.49999988079071045, -0.5]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ],
+              "ComponentRigidbody": [
+                {
+                  "ƒ.ComponentRigidbody": {
+                    "initialization": "TO_PIVOT",
+                    "friction": 0.2,
+                    "restitution": 0.2,
+                    "mass": 30,
+                    "dampTranslation": 0.1,
+                    "dampRotation": 0.1,
+                    "effectGravity": 1,
+                    "typeBody": "DYNAMIC",
+                    "typeCollider": "CUBE",
+                    "isTrigger": false,
+                    "id": 0,
+                    "pivot": {
+                      "translation": "[0, 0, 0]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ]
+            },
+            "children": []
+          }
+        },
+        {
+          "ƒ.GraphInstance": {
+            "name": "Avatar",
+            "active": true,
+            "components": {
+              "ComponentTransform": [
+                {
+                  "ƒ.ComponentTransform": {
+                    "local": {
+                      "translation": "[0, 0, 0]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ],
+              "ComponentRigidbody": [
+                {
+                  "ƒ.ComponentRigidbody": {
+                    "initialization": "TO_PIVOT",
+                    "friction": 0.2,
+                    "restitution": 0.2,
+                    "mass": 70,
+                    "dampTranslation": 0.1,
+                    "dampRotation": 0.1,
+                    "effectGravity": 1,
+                    "typeBody": "DYNAMIC",
+                    "typeCollider": "CAPSULE",
+                    "isTrigger": false,
+                    "id": 0,
+                    "pivot": {
+                      "translation": "[0, 0.9, 0]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[0.6000000000000001, 1.2000000000000002, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ],
+              "CharacterController": [
+                {
+                  "Script.CharacterController": {
+                    "active": true,
+                    "stateBody": "idle",
+                    "stateUpper": "empty",
+                    "walkSpeed": 1.5,
+                    "runSpeed": 5,
+                    "camera": "node/parent/children/0",
+                    "animationIdling": "AnimationGLTF|2024-12-16T10:05:07.876Z|24319",
+                    "animationWalking": "AnimationGLTF|2024-12-16T10:05:07.971Z|77177",
+                    "animationRunning": "AnimationGLTF|2024-12-16T10:05:07.951Z|80430",
+                    "animationJumping": "AnimationGLTF|2024-12-16T10:05:07.932Z|66161",
+                    "animationFalling": "AnimationGLTF|2024-12-16T10:05:07.839Z|84639",
+                    "animationSheathing": "AnimationGLTF|2024-12-16T10:05:07.959Z|05031"
+                  }
+                }
+              ],
+              "ComponentAnimationGraph": [
+                {
+                  "ƒ.ComponentAnimationGraph": {
+                    "active": true
+                  }
+                }
+              ],
+              "ComponentGraphFilter": [
+                {
+                  "ƒ.ComponentGraphFilter": {
+                    "active": true
+                  }
+                }
+              ]
+            },
+            "url": "GLTF\\Avatar.gltf",
+            "idSource": "GraphGLTF|2024-12-16T10:05:07.839Z|39057"
+          }
+        },
+        {
+          "ƒ.Node": {
+            "name": "RotatingCube",
+            "active": false,
+            "components": {
+              "ComponentMesh": [
+                {
+                  "ƒ.ComponentMesh": {
+                    "idMesh": "MeshCube|2024-12-16T09:34:16.343Z|79335",
+                    "pivot": {
+                      "translation": "[0, 0, 0]",
+                      "rotation": "[0, 0, 0]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ],
+              "ComponentMaterial": [
+                {
+                  "ƒ.ComponentMaterial": {
+                    "sortForAlpha": false,
+                    "clrPrimary": "[1, 1, 1, 1]",
+                    "clrSecondary": "[1, 1, 1, 1]",
+                    "pivot": {
+                      "translation": "[0, 0]",
+                      "rotation": 0,
+                      "scaling": "[1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    },
+                    "idMaterial": "Material|2024-12-16T09:35:58.337Z|51987"
+                  }
+                }
+              ],
+              "ComponentTransform": [
+                {
+                  "ƒ.ComponentTransform": {
+                    "local": {
+                      "translation": "[-1.1920928955078125e-7, 1.8999998569488525, 2.1000001430511475]",
+                      "rotation": "[3.1658551107500836e-28, 3.1658551107500836e-28, 3.1658551107500836e-28]",
+                      "scaling": "[1, 1, 1]"
+                    },
+                    "Component": {
+                      "active": true
+                    }
+                  }
+                }
+              ],
+              "CubeAnimator": [
+                {
+                  "Script.CubeAnimator": {
+                    "active": true,
+                    "animationX": "Animation|2024-12-16T10:23:57.507Z|38290",
+                    "animationY": "Animation|2024-12-16T10:24:11.070Z|83318",
+                    "Aa": 3,
+                    "Bb": 4,
+                    "balls": "hairy",
+                    "myBalls": 2
+                  }
+                }
+              ],
+              "ComponentAnimationGraph": [
+                {
+                  "ƒ.ComponentAnimationGraph": {
+                    "active": true
+                  }
+                }
+              ]
+            },
+            "children": []
+          }
+        }
+      ],
+      "idResource": "Graph|2024-12-16T09:33:18.552Z|83139",
+      "type": "Graph"
+    }
+  }
+}

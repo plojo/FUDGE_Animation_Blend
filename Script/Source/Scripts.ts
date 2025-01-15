@@ -1,49 +1,18 @@
 namespace Script {
   import ƒ = FudgeCore;
-  import ƒui = FudgeUserInterface;
-
   ƒ.Project.registerScriptNamespace(Script);  // Register the namespace to FUDGE for serialization
 
-  function logged(_value: any, _context: DecoratorContext): any {
-    const metadata: any = _context.metadata;
-
-    if (_context.kind === 'field') { // (A)
-      if (!metadata["log"])
-        metadata["log"] = [];
-
-      metadata["log"].push(_context.name);
-    }
-    if (_context.kind === 'class') { // (B)
-      return class extends _value {
-        public constructor(...args: any[]) {
-          super(...args);
-          for (const key of metadata["log"]) {
-            const get = () => {
-              return this["ƒ" + key];
-            }
-            const set = (_value: any) => {
-              console.log(key, _value);
-              this["ƒ" + key] = _value;
-            }
-            Object.defineProperty(this, "ƒ" + key, { value: this[key], writable: true });
-            Object.defineProperty(this, key, { get: get, set: set });
-
-          }
-        }
-      }
-    }
-  }
-
-  @ƒ.serialize @logged
+  @ƒ.serialize
   export class CharacterController extends ƒ.ComponentScript {
     public static readonly iSubclass: number = ƒ.Component.registerSubclass(CharacterController);
 
-    @logged
-    private state: "idle" | "move" | "jump" | "fall" = "idle";
+    private stateBody: "idle" | "move" | "jump" | "fall" = "idle";
+    private stateUpper: "empty" | "sheathe" = "empty";
+
 
     private walkSpeed: number = 1.5;
     private runSpeed: number = 5;
-    private cmpAnimation: ƒ.ComponentAnimation;
+    private cmpAnimationGraph: ƒ.ComponentAnimationGraph;
     private cmpRigidbody: ƒ.ComponentRigidbody;
 
     @ƒ.serialize(ƒ.Node)
@@ -62,16 +31,17 @@ namespace Script {
     @ƒ.serialize(ƒ.Animation)
     private animationSheathing: ƒ.Animation;
 
-    #idling: ƒ.AnimationNode;
-    #walking: ƒ.AnimationNode;
-    #running: ƒ.AnimationNode;
-    #moving: ƒ.AnimationNode;
-    #jumping: ƒ.AnimationNode;
-    #falling: ƒ.AnimationNode;
-    #sheathing: ƒ.AnimationNode;
+    #empty: ƒ.AnimationNodeAnimation;
+    #idling: ƒ.AnimationNodeAnimation;
+    #walking: ƒ.AnimationNodeAnimation;
+    #running: ƒ.AnimationNodeAnimation;
+    #moving: ƒ.AnimationNodeBlend;
+    #jumping: ƒ.AnimationNodeAnimation;
+    #falling: ƒ.AnimationNodeAnimation;
+    #sheathing: ƒ.AnimationNodeAnimation;
 
-    #layerBase: ƒ.AnimationLayer;
-    #layerUpper: ƒ.AnimationLayer;
+    #layerBase: ƒ.AnimationNodeTransition;
+    #layerUpper: ƒ.AnimationNodeTransition;
 
     #input: ƒ.Vector2 = ƒ.Vector2.ZERO();
     #speed: number = this.walkSpeed;
@@ -86,41 +56,37 @@ namespace Script {
     public start = (): void => {
       ƒ.Debug.group(this.constructor.name + " Start")
 
-      this.cmpAnimation = this.node.getComponent(ƒ.ComponentAnimation);
+      this.cmpAnimationGraph = this.node.getComponent(ƒ.ComponentAnimationGraph);
       this.cmpRigidbody = this.node.getComponent(ƒ.ComponentRigidbody);
       this.cmpRigidbody.effectRotation = ƒ.Vector3.ZERO();
 
+      this.#empty = new ƒ.AnimationNodeAnimation();
 
-      this.#idling = new ƒ.AnimationNode(this.animationIdling, { weight: 1 });
-      this.#walking = new ƒ.AnimationNode(this.animationWalking, { weight: 1 });
-      this.#running = new ƒ.AnimationNode(this.animationRunning, { weight: 0 });
-      this.#moving = new ƒ.AnimationNode([this.#walking, this.#running], { speed: 1 });
-      this.#jumping = new ƒ.AnimationNode(this.animationJumping, { playmode: ƒ.ANIMATION_PLAYMODE.PLAY_ONCE });
-      this.#falling = new ƒ.AnimationNode(this.animationFalling, { weight: 1 });
-      this.#sheathing = new ƒ.AnimationNode(this.animationSheathing, { weight: 1, playmode: ƒ.ANIMATION_PLAYMODE.PLAY_ONCE });
+      this.#idling = new ƒ.AnimationNodeAnimation(this.animationIdling);
+      this.#walking = new ƒ.AnimationNodeAnimation(this.animationWalking, { offset: this.animationWalking.totalTime * 0.3 });
+      this.#running = new ƒ.AnimationNodeAnimation(this.animationRunning, { offset: this.animationRunning.totalTime * 0.3, speed: this.animationRunning.totalTime / this.animationWalking.totalTime });
+      this.#moving = new ƒ.AnimationNodeBlend([this.#walking, this.#running]);
+      Reflect.set(this.#moving, "test", true);
 
-      this.#layerBase = new ƒ.AnimationLayer(this.#idling, { weight: 1 });
-      this.#layerUpper = new ƒ.AnimationLayer({}, { weight: 1 });
-      this.cmpAnimation.branch = new ƒ.AnimationLayers([this.#layerBase, this.#layerUpper]);
+      this.#jumping = new ƒ.AnimationNodeAnimation(this.animationJumping, { playmode: ƒ.ANIMATION_PLAYMODE.PLAY_ONCE });
+      this.#sheathing = new ƒ.AnimationNodeAnimation(this.animationSheathing, { playmode: ƒ.ANIMATION_PLAYMODE.PLAY_ONCE });
+      this.#falling = new ƒ.AnimationNodeAnimation(this.animationFalling);
+
+      this.#layerBase = new ƒ.AnimationNodeTransition(this.#idling);
+      this.#layerUpper = new ƒ.AnimationNodeTransition(this.#empty);
+      this.cmpAnimationGraph.root = new ƒ.AnimationNodeBlend([this.#layerBase, this.#layerUpper]);
 
       document.onkeydown = (_event: KeyboardEvent) => {
         switch (_event.code) {
           case ƒ.KEYBOARD_CODE.E:
-            if (this.#layerUpper.isPlaying(this.#sheathing))
+            if (this.stateUpper == "sheathe")
               return;
 
+            this.stateUpper = "sheathe";
             this.#layerUpper.transit(this.#sheathing, 300);
-
-            ƒ.Time.game.setTimer(0.8 * this.animationSheathing.totalTime, 1, () => {
-              this.#layerUpper.transit({}, 300);
-            });
             break;
-          case ƒ.KEYBOARD_CODE.Q:
-            this.#layerUpper.transit({}, 200);
-            break;
-
           case ƒ.KEYBOARD_CODE.SPACE:
-            if (!this.#grounded || this.state == "jump")
+            if (!this.#grounded || this.stateBody == "jump")
               return;
 
             let velocity: ƒ.Vector3 = this.cmpRigidbody.getVelocity();
@@ -128,10 +94,18 @@ namespace Script {
             this.cmpRigidbody.setVelocity(velocity);
             this.#grounded = false;
             this.#layerBase.transit(this.#jumping, 200);
-            this.state = "jump";
+            this.stateBody = "jump";
             break;
         }
       }
+
+      this.cmpAnimationGraph.addEventListener("sheathingend", () => {
+        if (this.stateUpper != "sheathe")
+          return;
+
+        this.stateUpper = "empty";
+        this.#layerUpper.transit(this.#empty, 300);
+      });
 
       ƒ.Debug.groupEnd();
     }
@@ -146,20 +120,20 @@ namespace Script {
       const isMoving: boolean = this.#input.magnitudeSquared > 0;
       // const wasGrounded: boolean = this.#grounded;
 
-      if (this.state != "jump") {
+      if (this.stateBody != "jump") {
         let rayHitInfo: ƒ.RayHitInfo = ƒ.Physics.raycast(ƒ.Vector3.SUM(this.node.mtxWorld.translation, new ƒ.Vector3(0, 0.1, 0)), ƒ.Vector3.Y(-1), 0.15, true);
         this.#grounded = rayHitInfo.hit;
       }
 
-      if (!this.#grounded && this.state != "fall" && this.cmpRigidbody.getVelocity().y < 0) {
-        this.#layerBase.transit(this.#falling, this.state == "jump" ? 1000 : 300);
-        this.state = "fall";
-      } if (this.state != "move" && this.#grounded && isMoving) {
-        this.#layerBase.transit(this.#moving, 200, 300);
-        this.state = "move";
-      } else if (this.state != "idle" && this.#grounded && !isMoving) {
+      if (!this.#grounded && this.stateBody != "fall" && this.cmpRigidbody.getVelocity().y < 0) {
+        this.#layerBase.transit(this.#falling, this.stateBody == "jump" ? 1000 : 300);
+        this.stateBody = "fall";
+      } if (this.stateBody != "move" && this.#grounded && isMoving) {
+        this.#layerBase.transit(this.#moving, 200);
+        this.stateBody = "move";
+      } else if (this.stateBody != "idle" && this.#grounded && !isMoving) {
         this.#layerBase.transit(this.#idling, 200);
-        this.state = "idle";
+        this.stateBody = "idle";
       }
 
       let acceleration: number = 0;
@@ -170,10 +144,8 @@ namespace Script {
 
       this.#speed = ƒ.Calc.clamp(this.#speed + acceleration * deltaTime, this.walkSpeed, this.runSpeed);
       this.#running.weight = (this.#speed - this.walkSpeed) / (this.runSpeed - this.walkSpeed);
-      let animationSpeed: number = 1 + this.#running.weight * this.animationRunning.totalTime / this.animationWalking.totalTime;
-      this.#walking.speed = this.#running.speed  = animationSpeed;
-
-      // this.#moving.speed = 1 + this.#running.weight * this.animationRunning.totalTime / this.animationWalking.totalTime;
+      let animationSpeed: number = 1 + this.#running.weight * this.#running.speed;
+      this.#moving.speed = animationSpeed;
 
       if (!isMoving)
         return;
@@ -211,22 +183,16 @@ namespace Script {
     private elevation: number = 45; // Vertical angle
     private rotationSpeed: number = 30; // Degrees per second
 
-    private velocity: ƒ.Vector3 = ƒ.Vector3.ZERO();
-
-
     @ƒ.serialize(ƒ.Node)
     public target: ƒ.Node;
 
     public readonly axisX: ƒ.Axis = new ƒ.Axis("RotateX", 1, ƒ.CONTROL_TYPE.PROPORTIONAL);
     public readonly axisY: ƒ.Axis = new ƒ.Axis("RotateY", 1, ƒ.CONTROL_TYPE.PROPORTIONAL);
 
-    private cmpCamera: ƒ.ComponentCamera;
-
     #target: ƒ.Vector3 = ƒ.Vector3.ZERO();
     #velocity: ƒ.Vector3 = ƒ.Vector3.ZERO();
 
     #lastPos: ƒ.Vector3 = ƒ.Vector3.ZERO();
-    #time: number = 0;
 
     public constructor() {
       super();
@@ -236,7 +202,6 @@ namespace Script {
 
     public start = (): void => {
       ƒ.Debug.group(this.constructor.name + " Start")
-      this.cmpCamera = this.node.getComponent(ƒ.ComponentCamera);
       this.axisX.addEventListener(ƒ.EVENT_CONTROL.OUTPUT, _event => this.azimuth += (<CustomEvent>_event).detail.output * this.rotationSpeed * ƒ.Loop.timeFrameReal / 1000);
       this.axisY.addEventListener(ƒ.EVENT_CONTROL.OUTPUT, _event => this.elevation = ƒ.Calc.clamp(
         this.elevation - (<CustomEvent>_event).detail.output * this.rotationSpeed * ƒ.Loop.timeFrameReal / 1000,
@@ -296,56 +261,13 @@ namespace Script {
       ƒ.Debug.group(this.constructor.name + " Start")
 
       this.animationX = new ƒ.Animation("AnimationX");
-      let cmpAnimation: ƒ.ComponentAnimation = this.node.getComponent(ƒ.ComponentAnimation) ?? new ƒ.ComponentAnimation();
-      let aNodeX: ƒ.AnimationNode = new ƒ.AnimationNode(this.animationX);
-      let aNodeY: ƒ.AnimationNode = new ƒ.AnimationNode(this.animationY);
-      let layers: ƒ.AnimationLayers = new ƒ.AnimationLayers([new ƒ.AnimationLayer(aNodeX, { weight: 1 }), new ƒ.AnimationLayer(aNodeY, { weight: 0.5 })]);
-      cmpAnimation.branch = layers;
+      let cmpAnimation: ƒ.ComponentAnimationGraph = this.node.getComponent(ƒ.ComponentAnimationGraph);
+      let aNodeX: ƒ.AnimationNodeAnimation = new ƒ.AnimationNodeAnimation(this.animationX);
+      let aNodeY: ƒ.AnimationNodeAnimation = new ƒ.AnimationNodeAnimation(this.animationY, { weight: 0.5 });
+      let layers: ƒ.AnimationNodeBlend = new ƒ.AnimationNodeBlend([aNodeX, aNodeY]);
+      cmpAnimation.root = layers;
       ƒ.Debug.groupEnd();
     }
   }
 
-
-
-  // export class CustomComponentScript extends ƒ.ComponentScript {
-  //   // Register the script as component for use in the editor via drag&drop
-  //   public static readonly iSubclass: number = ƒ.Component.registerSubclass(CustomComponentScript);
-  //   // Properties may be mutated by users in the editor via the automatically created user interface
-  //   public message: string = "CustomComponentScript added to ";
-
-
-  //   constructor() {
-  //     super();
-
-  //     // Don't start when running in editor
-  //     if (ƒ.Project.mode == ƒ.MODE.EDITOR)
-  //       return;
-
-  //     // Listen to this component being added to or removed from a node
-  //     this.addEventListener(ƒ.EVENT.COMPONENT_ADD, this.hndEvent);
-  //     this.addEventListener(ƒ.EVENT.COMPONENT_REMOVE, this.hndEvent);
-  //     this.addEventListener(ƒ.EVENT.NODE_DESERIALIZED, this.hndEvent);
-  //   }
-
-  //   // Activate the functions of this component as response to events
-  //   public hndEvent = (_event: Event): void => {
-  //     switch (_event.type) {
-  //       case ƒ.EVENT.COMPONENT_ADD:
-  //         ƒ.Debug.log(this.message, this.node);
-  //         break;
-  //       case ƒ.EVENT.COMPONENT_REMOVE:
-  //         this.removeEventListener(ƒ.EVENT.COMPONENT_ADD, this.hndEvent);
-  //         this.removeEventListener(ƒ.EVENT.COMPONENT_REMOVE, this.hndEvent);
-  //         break;
-  //       case ƒ.EVENT.NODE_DESERIALIZED:
-  //         // if deserialized the node is now fully reconstructed and access to all its components and children is possible
-  //         break;
-  //     }
-  //   }
-
-  //   // protected reduceMutator(_mutator: ƒ.Mutator): void {
-  //   //   // delete properties that should not be mutated
-  //   //   // undefined properties and private fields (#) will not be included by default
-  //   // }
-  // }
 }

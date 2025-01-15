@@ -1,0 +1,8 @@
+*.tsbuildinfo
+settings.json
+Script/Source/@types
+Script/FudgeCore.js
+Script/FudgeAid.js
+Script/FudgeUserInterface.js
+
+Symlinks.bat

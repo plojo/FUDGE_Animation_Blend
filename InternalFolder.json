@@ -1,0 +1,56 @@
+{
+  "Fudge.ResourceFolder": {
+    "name": "Resources",
+    "entries": [
+      {
+        "name": "Main",
+        "entries": [
+          {
+            "idResource": "Graph|2024-12-16T09:33:18.552Z|83139"
+          },
+          {
+            "idResource": "MeshCube|2024-12-16T09:34:16.343Z|79335"
+          },
+          {
+            "idResource": "TextureImage|2024-12-16T09:36:30.632Z|69224"
+          },
+          {
+            "idResource": "Material|2024-12-16T09:35:58.337Z|51987"
+          },
+          {
+            "idResource": "Animation|2024-12-16T10:23:57.507Z|38290"
+          },
+          {
+            "idResource": "Animation|2024-12-16T10:24:11.070Z|83318"
+          }
+        ]
+      },
+      {
+        "name": "Avatar",
+        "entries": [
+          {
+            "idResource": "GraphGLTF|2024-12-16T10:05:07.839Z|39057"
+          },
+          {
+            "idResource": "AnimationGLTF|2024-12-16T10:05:07.839Z|84639"
+          },
+          {
+            "idResource": "AnimationGLTF|2024-12-16T10:05:07.876Z|24319"
+          },
+          {
+            "idResource": "AnimationGLTF|2024-12-16T10:05:07.932Z|66161"
+          },
+          {
+            "idResource": "AnimationGLTF|2024-12-16T10:05:07.951Z|80430"
+          },
+          {
+            "idResource": "AnimationGLTF|2024-12-16T10:05:07.959Z|05031"
+          },
+          {
+            "idResource": "AnimationGLTF|2024-12-16T10:05:07.971Z|77177"
+          }
+        ]
+      }
+    ]
+  }
+}

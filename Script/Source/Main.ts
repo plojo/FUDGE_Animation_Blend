@@ -38,8 +38,8 @@ namespace Script {
     viewport.gizmosEnabled = true;
     ƒ.Debug.log("Viewport:", viewport);
 
-    // ƒ.Time.game.setScale(0.1);
-    // canvas.onpointerdown = () => canvas.requestPointerLock();
+    // ƒ.Time.game.setScale(0.25);
+    canvas.onpointerdown = (_event) => {if (_event.button == 2 )canvas.requestPointerLock();}
 
     ƒ.Loop.addEventListener(ƒ.EVENT.LOOP_FRAME, update);
     ƒ.Loop.start();  // start the game loop to continously draw the viewport, update the audiosystem and drive the physics i/a
